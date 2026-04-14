@@ -3,6 +3,18 @@ from conexion import conectar
 def registrar_prestamo(libro_id, socio_id):
     conn = conectar()
     cursor = conn.cursor()
+    
+    # Verificar si el libro está disponible
+    cursor.execute("SELECT disponible FROM libros WHERE id = %s", (libro_id,))
+    libro = cursor.fetchone()
+    
+    if not libro:
+        print("❌ El libro no existe.")
+        return
+    if not libro[0]:
+        print("❌ El libro ya está prestado.")
+        return
+    
     cursor.execute(
         "INSERT INTO prestamos (libro_id, socio_id) VALUES (%s, %s)",
         (libro_id, socio_id)
