@@ -3,6 +3,17 @@ from conexion import conectar
 def agregar_socio(nombre, dni, email):
     conn = conectar()
     cursor = conn.cursor()
+    
+    # Verificar si el DNI ya existe
+    cursor.execute("SELECT id FROM socios WHERE dni = %s", (dni,))
+    existe = cursor.fetchone()
+    
+    if existe:
+        print(f"❌ Ya existe un socio con el DNI {dni}.")
+        cursor.close()
+        conn.close()
+        return
+    
     cursor.execute(
         "INSERT INTO socios (nombre, dni, email) VALUES (%s, %s, %s)",
         (nombre, dni, email)
