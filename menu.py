@@ -1,6 +1,7 @@
 from libros import agregar_libro, ver_libros
 from socios import agregar_socio, ver_socios
 from prestamos import registrar_prestamo, registrar_devolucion, ver_prestamos_activos
+from buscar_libros import buscar_tit ,buscar_autor
 
 def menu():
     while True:
@@ -12,6 +13,7 @@ def menu():
         print("5. Registrar préstamo")
         print("6. Registrar devolución")
         print("7. Ver préstamos activos")
+        print("8. Buscar libros por título o autor")
         print("0. Salir")
 
         opcion = input("\nElegí una opción: ")
@@ -43,6 +45,11 @@ def menu():
             registrar_devolucion(libro_id)
         elif opcion == "7":
             ver_prestamos_activos()
+        elif opcion == "8":
+            titulo = input("Nombre del libro o autor: ")
+            buscar_tit(titulo);
+            buscar_autor(titulo);
+        
         elif opcion == "0":
             print("👋 ¡Hasta luego!")
             break
